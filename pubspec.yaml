@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^1.2.0
   shared_preferences: ^2.2.2
+  qr_code_scanner: ^1.0.1
+  awesome_dialog: ^3.1.0
+  image_picker: ^1.0.7
 
 dev_dependencies:
   flutter_test:
@@ -62,7 +65,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/img/ocesa-logo-white.png
+    - assets/img/ocesa-logo-orange.png
     - assets/img/music-l.png
 
      

@@ -1,14 +1,15 @@
 // bottom_navigation_bar.dart
 
 import 'package:flutter/material.dart';
-import 'package:ocesa_scan_v2/class/storage_helper.dart';
 import 'package:ocesa_scan_v2/screens/delivered_page.dart';
-import 'package:ocesa_scan_v2/screens/qr_scan_page.dart';
-import 'package:ocesa_scan_v2/screens/select_festival_page.dart';
+import 'package:ocesa_scan_v2/screens/scan_btn.dart';
 import '../screens/manual_search_page.dart';
 import 'package:ocesa_scan_v2/main.dart';
+import 'package:ocesa_scan_v2/class/AppColors.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
+  const BottomNavigationBarWidget({super.key});
+
   @override
   _BottomNavigationBarWidgetState createState() =>
       _BottomNavigationBarWidgetState();
@@ -16,8 +17,8 @@ class BottomNavigationBarWidget extends StatefulWidget {
 
 class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
   int _selectedIndex = 0;
-  static List<Widget> _widgetOptions = <Widget>[
-    QRScanPage(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    ScanBtn(),
     ManualSearchPage(),
     DeliveredPage(),
     MyApp(),
@@ -42,8 +43,8 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 35,
-        selectedItemColor: Colors.purpleAccent,
-        unselectedItemColor: Colors.purple,
+        selectedItemColor: AppColors.primaryColor,
+        unselectedItemColor: AppColors.accentColor,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.qr_code_scanner),

@@ -1,35 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:ocesa_scan_v2/class/AppColors.dart';
 import 'package:ocesa_scan_v2/widgets/festival_dropdown.dart';
 import 'package:ocesa_scan_v2/widgets/festival_with_image.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Color(0xFF301865),
+        scaffoldBackgroundColor: AppColors.backgroundColor,
       ),
       darkTheme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Color(0xFF301865),
+        scaffoldBackgroundColor: AppColors.backgroundColor,
       ),
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('OCESA SCAN'),
+          title: const Text('OCESA SCAN.'),
+          backgroundColor: AppColors.backgroundColor,
         ),
-        body: Column(
+        body: const Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Center(
               child: FestivalWithImage(
-                const SizedBox(height: 15),
-                child: FestivalDropdown(),
+                SizedBox(height: 15),
                 imageUrl: 'assets/img/music-l.png',
-                imageUrl2: 'assets/img/ocesa-logo-white.png',
+                imageUrl2: 'assets/img/ocesa-logo-orange.png',
+                child: FestivalDropdown(),
               ),
             ),
           ],

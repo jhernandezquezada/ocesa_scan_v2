@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class DeliveredPage extends StatelessWidget {
+  const DeliveredPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Delivered'),
+        title: const Text('Delivered'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Delivered Page Content'),
       ),
     );

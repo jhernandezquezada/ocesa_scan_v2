@@ -1,30 +1,38 @@
-// manual_search_page.dart
-
 import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:ocesa_scan_v2/class/storage_helper.dart';
 import 'package:ocesa_scan_v2/screens/user_details_page.dart';
-import 'package:ocesa_scan_v2/class/shared_preferences_helper.dart';
-import 'package:ocesa_scan_v2/widgets/festival_model.dart';
 
 class ManualSearchPage extends StatefulWidget {
-  // ManualSearchPage();
+  const ManualSearchPage({super.key});
 
   @override
   _ManualSearchPageState createState() => _ManualSearchPageState();
 }
 
 class _ManualSearchPageState extends State<ManualSearchPage> {
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   List<dynamic> searchResults = [];
+  String? festivalName;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchFestivalName();
+  }
+
+  Future<void> _fetchFestivalName() async {
+    festivalName = await StorageHelper.getFestivalName();
+    print(festivalName);
+    setState(() {}); // Trigger a rebuild after fetching festivalName
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Manual Search'),
+        title: const Text('Manual Search'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -32,20 +40,28 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
           children: [
             TextField(
               controller: _searchController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Enter search term',
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 _performSearch();
               },
-              child: Text('Search'),
+              child: const Text('Search'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Expanded(
               child: _buildSearchResults(),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Working on: ${festivalName ?? "Loading..."}',
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -55,7 +71,7 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
 
   Widget _buildSearchResults() {
     if (searchResults.isEmpty) {
-      return Center(
+      return const Center(
         child: Text('No results found.'),
       );
     }
@@ -66,12 +82,32 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
         final record = searchResults[index];
         final fullName = '${record['fullname']}';
 
-        return ListTile(
-          title: Text(fullName),
-          subtitle: Text(record['email']),
-          onTap: () {
-            _navigateToUserDetailsPage(record);
-          },
+        return Card(
+          elevation: 3,
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          color: Colors.white,
+          child: ListTile(
+            title: Text(fullName, style: const TextStyle(color: Colors.black)),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(record['email'],
+                    style: const TextStyle(color: Colors.purpleAccent)),
+                const SizedBox(height: 4), // Add some space between the subtitles
+                Text(
+                  record['idStatus'], // Add your additional subtitle here
+                  style: const TextStyle(
+                    color: Colors.purple,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            onTap: () {
+              _navigateToUserDetailsPage(record);
+            },
+            contentPadding: const EdgeInsets.all(16), // Adjust padding as needed
+          ),
         );
       },
     );
@@ -97,7 +133,6 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
         searchResults = jsonData;
       });
     } else {
-      // Handle error cases
       print('Error: ${response.statusCode}');
     }
   }
@@ -107,8 +142,8 @@ class _ManualSearchPageState extends State<ManualSearchPage> {
       context,
       MaterialPageRoute(
         builder: (context) => UserDetailsPage(
-          name: record['name'],
-          lastName: record['lastName'],
+          id: record['id'],
+          name: record['fullname'],
           email: record['email'],
           qty: record['quantity'],
           access: record['idAccess'],

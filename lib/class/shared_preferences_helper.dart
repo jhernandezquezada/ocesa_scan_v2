@@ -2,7 +2,6 @@
 
 import 'package:ocesa_scan_v2/widgets/festival_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ocesa_scan_v2/widgets/festival_model.dart';
 
 class SharedPreferencesHelper {
   static const String _selectedFestivalIdKey = 'selectedFestivalId';

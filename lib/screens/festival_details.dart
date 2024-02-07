@@ -7,13 +7,13 @@ class FestivalDetailsScreen extends StatelessWidget {
   final int id;
   final String name;
 
-  FestivalDetailsScreen({required this.id, required this.name});
+  const FestivalDetailsScreen({super.key, required this.id, required this.name});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Festival Details'),
+        title: const Text('Festival Details'),
       ),
       body: Center(
         child: Column(
@@ -26,7 +26,7 @@ class FestivalDetailsScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar:
-          BottomNavigationBarWidget(), // Agrega la barra de navegación inferior aquí
+          const BottomNavigationBarWidget(), // Agrega la barra de navegación inferior aquí
     );
   }
 }

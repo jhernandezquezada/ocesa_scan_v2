@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 class UserDetailsPage extends StatelessWidget {
+  final int id;
   final String name;
-  final String lastName;
   final String email;
   final String idStatus;
   final String access;
@@ -12,9 +12,9 @@ class UserDetailsPage extends StatelessWidget {
   final String identification;
   final String qty;
 
-  UserDetailsPage(
-      {required this.name,
-      required this.lastName,
+  const UserDetailsPage(
+      {super.key, required this.id,
+      required this.name,
       required this.email,
       required this.idStatus,
       required this.access,
@@ -26,14 +26,14 @@ class UserDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Details'),
+        title: const Text('User Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Name: $name $lastName'),
+            Text('Name: $name'),
             Text('Email: $email'),
             Text('Status: $idStatus'),
             Text('Status: $access'),
